@@ -446,7 +446,7 @@ with tab1:
                             labels=LABEL_MAP)
         fig.add_vline(x=f_df.Final_Score.mean(), line_dash="dash", line_color="red",
                       annotation_text=f"Rata-rata: {f_df.Final_Score.mean():.1f}")
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, key="tab1_hist_final_score")
         st.info(insight_distribusi(f_df["Final_Score"], "Final_Score"))
 
     with c2:
@@ -454,7 +454,7 @@ with tab1:
         fig = px.histogram(f_df, x="Age", color="Gender", barmode="group",
                             color_discrete_map=COLOR_MAPS["Gender"],
                             category_orders=CATEGORY_ORDERS, labels=LABEL_MAP)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, key="tab1_hist_age_gender")
         st.info(insight_distribusi(f_df["Age"], "Age"))
 
     c3, c4 = st.columns(2)
@@ -462,7 +462,7 @@ with tab1:
         st.subheader("Komposisi Gender")
         fig = px.pie(f_df, names="Gender", hole=0.45, color="Gender",
                      color_discrete_map=COLOR_MAPS["Gender"], category_orders=CATEGORY_ORDERS)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, key="tab1_pie_gender")
         st.info(insight_komposisi(f_df["Gender"], "Gender"))
 
     with c4:
@@ -472,7 +472,7 @@ with tab1:
         fig = px.bar(counts, x="Family_Income_Level", y="Jumlah", color="Family_Income_Level",
                      color_discrete_map=COLOR_MAPS["Family_Income_Level"],
                      category_orders=CATEGORY_ORDERS, labels=LABEL_MAP)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, key="tab1_bar_income")
         st.info(insight_komposisi(f_df["Family_Income_Level"], "Family_Income_Level"))
 
     c3b, c4b = st.columns(2)
@@ -483,7 +483,7 @@ with tab1:
         fig = px.bar(counts_p, x="Predikat", y="Jumlah", color="Predikat",
                      color_discrete_map=COLOR_MAPS["Predikat"], category_orders=CATEGORY_ORDERS,
                      text_auto=True, labels=LABEL_MAP)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, key="tab1_bar_predikat")
         st.info(insight_komposisi(f_df["Predikat"], "Predikat"))
 
     with c4b:
@@ -493,7 +493,7 @@ with tab1:
         fig = px.bar(counts_s, x="Kelompok_Stres", y="Jumlah", color="Kelompok_Stres",
                      color_discrete_map=COLOR_MAPS["Kelompok_Stres"], category_orders=CATEGORY_ORDERS,
                      text_auto=True, labels=LABEL_MAP)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, key="tab1_bar_stres")
         st.info(insight_komposisi(f_df["Kelompok_Stres"], "Kelompok_Stres"))
 
     st.subheader("Distribusi Variabel Numerik")
@@ -503,7 +503,7 @@ with tab1:
     with c5:
         fig = px.histogram(f_df, x=num_choice, nbins=40, marginal="box",
                             color_discrete_sequence=["#00B894"], labels=LABEL_MAP)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, key="tab1_hist_numeric_var")
         st.info(insight_distribusi(f_df[num_choice], num_choice))
     with c6:
         st.write("**Statistik Deskriptif**")
@@ -518,7 +518,7 @@ with tab2:
     corr = f_df[NUMERIC_COLS].corr().round(2)
     corr_display = corr.rename(index=to_label, columns=to_label)
     fig = px.imshow(corr_display, text_auto=True, color_continuous_scale="RdBu_r", zmin=-1, zmax=1, aspect="auto")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True, key="tab2_heatmap_corr")
     st.info(insight_heatmap(corr))
 
     st.markdown("---")
@@ -536,7 +536,7 @@ with tab2:
                       opacity=0.6,
                       color_discrete_map=COLOR_MAPS.get(color_arg),
                       category_orders=CATEGORY_ORDERS, labels=LABEL_MAP)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True, key="tab2_scatter_interaktif")
     st.info(insight_korelasi(f_df, x_var, y_var))
 
     st.subheader("Faktor Paling Berkorelasi dengan Skor Akhir")
@@ -545,7 +545,7 @@ with tab2:
     fig = px.bar(corr_final_display, orientation="h", color=corr_final_display.values,
                  color_continuous_scale="RdBu_r", labels={"value": "Korelasi", "index": "Variabel"})
     fig.update_layout(coloraxis_showscale=False)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True, key="tab2_bar_faktor_korelasi")
     st.info(insight_faktor(corr_final))
 
 # ---------------------------------------------------------
@@ -579,13 +579,13 @@ with tab3:
         fig = px.box(f_df, x=cat_choice, y="Final_Score", color=cat_choice,
                      color_discrete_map=COLOR_MAPS[cat_choice],
                      category_orders=CATEGORY_ORDERS, labels=LABEL_MAP)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, key="tab3_box_kategori")
         st.info(insight_kategori(agg, cat_choice, "Final_Score", p_val_final))
     with c2:
         fig = px.bar(agg, x=cat_choice, y="Final_Score", color=cat_choice, text_auto=".1f",
                      color_discrete_map=COLOR_MAPS[cat_choice],
                      category_orders=CATEGORY_ORDERS, labels=LABEL_MAP)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, key="tab3_bar_kategori")
         st.info(insight_kategori(agg, cat_choice, "Final_Score", p_val_final))
 
     st.markdown("---")
@@ -607,7 +607,7 @@ with tab3:
             marker=dict(size=5, color=warna),
         ))
     fig.update_layout(polar=dict(radialaxis=dict(visible=True, range=[0, 1])), showlegend=True)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True, key="tab3_radar")
     st.info(insight_radar(group_avg_norm))
 
     st.subheader("Tabel Ringkasan per Kategori")
@@ -639,7 +639,7 @@ with tab4:
         fig = px.scatter(f_df, x=x, y=y, color=color_arg, trendline="ols",
                           opacity=0.6, color_discrete_map=COLOR_MAPS.get(color_arg),
                           category_orders=CATEGORY_ORDERS, labels=LABEL_MAP)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, key="tab4_scatter_bebas")
         st.info(insight_korelasi(f_df, x, y))
 
     elif chart_type == "📈 Distribusi Satu Variabel":
@@ -656,7 +656,7 @@ with tab4:
                             opacity=0.6 if color_arg else 1.0,
                             color_discrete_map=COLOR_MAPS.get(color_arg),
                             category_orders=CATEGORY_ORDERS, labels=LABEL_MAP)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, key="tab4_hist_bebas")
         st.info(insight_distribusi(f_df[x], x))
 
     else:  # Perbandingan Antar Kategori
@@ -688,7 +688,7 @@ with tab4:
         fig = px.box(f_df, x=x, y=y, color=x, color_discrete_map=COLOR_MAPS[x], points=False,
                      category_orders=CATEGORY_ORDERS, labels=LABEL_MAP)
         fig.update_traces(boxmean=True)  # tampilkan garis putus-putus rata-rata di tiap box
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, key="tab4_box_bebas")
         agg_b = f_df.groupby(x, observed=True)[y].mean().reindex(CATEGORY_ORDERS[x]).reset_index()
         st.info(insight_kategori(agg_b, x, y, p_val_b))
 
