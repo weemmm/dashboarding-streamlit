@@ -387,12 +387,12 @@ f_df = f_df[f_df.Family_Income_Level.isin(income_sel)]
 extra_sel = st.sidebar.multiselect("Ekstrakurikuler", sorted(df.Extracurricular.unique()), default=list(sorted(df.Extracurricular.unique())))
 f_df = f_df[f_df.Extracurricular.isin(extra_sel)]
 
-study_hours_range = st.sidebar.slider(
-    "Jam Belajar per Hari",
-    float(df.Hours_Studied.min()), float(df.Hours_Studied.max()),
-    (float(df.Hours_Studied.min()), float(df.Hours_Studied.max())),
-)
-f_df = f_df[f_df.Hours_Studied.between(*study_hours_range)]
+# study_hours_range = st.sidebar.slider(
+#     "Jam Belajar per Hari",
+#     float(df.Hours_Studied.min()), float(df.Hours_Studied.max()),
+#     (float(df.Hours_Studied.min()), float(df.Hours_Studied.max())),
+# )
+# f_df = f_df[f_df.Hours_Studied.between(*study_hours_range)]
 
 st.sidebar.markdown("---")
 st.sidebar.caption(f"Menampilkan **{len(f_df):,}** dari **{len(df):,}** mahasiswa")
@@ -701,3 +701,4 @@ with tab5:
     st.dataframe(f_df, use_container_width=True, height=500)
     csv = f_df.to_csv(index=False).encode("utf-8")
     st.download_button("⬇️ Unduh data terfilter (CSV)", csv, "data_terfilter.csv", "text/csv")
+    
