@@ -10,8 +10,8 @@ Proyek ini dibuat sebagai bagian dari tugas UAS mata kuliah **Visualisasi Data**
 
 | No | Nama | NIM |
 |----|------|-----|
-| 1 | Rayhan Arkananta Adrian | 2300018384 |
-| 2 | Wildan Mursalin Rizqia | 2300018372 |
+| 1 | Wildan Mursalin Rizqia | 2300018372 |
+| 2 | Rayhan Arkananta Adrian | 2300018384 |
 
 ## Isi Repositori
 
