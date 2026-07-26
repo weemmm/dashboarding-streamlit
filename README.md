@@ -4,7 +4,7 @@ Dashboard interaktif berbasis **Streamlit** untuk menganalisis pengaruh gaya hid
 
 **Live demo:** https://perkembangan-mahasiswa.streamlit.app/
 
-Proyek ini dibuat sebagai bagian dari tugas UAS mata kuliah **Visualisasi Data**, Program Studi Informatika, Universitas Ahmad Dahlan (Kelas B, Semester VI, TA 2025/2026).
+Proyek ini dibuat sebagai bagian dari tugas UAS mata kuliah **Visualisasi Data**, Program Studi Informatika, Universitas Ahmad Dahlan (Kelas B, Semester VI, Tahun Ajaran 2025/2026).
 
 ## Anggota Kelompok
 
@@ -20,14 +20,14 @@ Proyek ini dibuat sebagai bagian dari tugas UAS mata kuliah **Visualisasi Data**
 | `app.py` | Kode utama dashboard Streamlit (load data, filter interaktif, visualisasi Plotly). |
 | `requirements.txt` | Daftar dependensi Python yang dibutuhkan untuk menjalankan dashboard. |
 | `student_performance.csv` | **Dataset mentah** (raw) sebelum proses cleaning, diunduh dari Kaggle. |
-| `student_performance_preprocessed.csv` | **Dataset bersih** (hasil cleaning: penghapusan kolom `Student_ID`, penyaringan `Gender`, serta penambahan kolom kelompok/kategori seperti `Kelompok_Jam_Belajar` dan `Kelompok_Stres` untuk kebutuhan visualisasi). |
+| `student_performance_preprocessed.csv` | **Dataset bersih** (hasil cleaning: penghapusan kolom `Student_ID`, penyaringan baris `Gender` di luar Male/Female — menyisakan **7.716 baris**, serta penambahan kolom kelompok/kategori seperti `Kelompok_Jam_Belajar` dan `Kelompok_Stres` untuk kebutuhan visualisasi). |
 | `README.md` | Dokumen ini. |
 
 ## Sumber Dataset
 
 - **Nama dataset:** Student Lifestyle & GPA Prediction Dataset
 - **Sumber:** [Kaggle](https://www.kaggle.com/datasets/sarveshchhetri/student-lifestyle-vs-academic-performance-dataset)
-- **Ukuran:** 8.000 baris × 18 kolom (mentah) → 7.716 baris × 17 kolom (bersih, setelah kolom `Student_ID` dihapus)
+- **Ukuran:** 8.000 baris × 18 kolom (mentah) → **7.716 baris × 17 kolom** (bersih, setelah penghapusan kolom `Student_ID` dan penyaringan baris `Gender` di luar kategori Male/Female)
 
 ## Fitur Dashboard
 
@@ -75,8 +75,8 @@ Proyek ini dibuat sebagai bagian dari tugas UAS mata kuliah **Visualisasi Data**
 ## Proses Data Cleaning (Ringkas)
 
 1. Pemeriksaan jumlah baris & kolom, serta tipe data setiap kolom.
-2. Pemeriksaan missing value — hasil: **0 missing value** pada seluruh kolom.
-3. Pemeriksaan data duplikat — hasil: **0 duplikat**.
+2. Pemeriksaan missing value, hasil: **0 missing value** pada seluruh kolom.
+3. Pemeriksaan data duplikat  hasil: **0 duplikat**.
 4. Penghapusan kolom `Student_ID` karena bersifat identifier dan tidak relevan untuk analisis/visualisasi.
 5. Penyaringan baris dengan nilai `Gender` di luar kategori `Male`/`Female`.
 6. Penambahan kolom turunan (`Kelompok_Jam_Belajar`, `Kelompok_Stres`) untuk mempermudah visualisasi berbasis kategori pada dashboard.
