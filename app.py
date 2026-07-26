@@ -4,9 +4,6 @@ import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 
-# =========================================================
-# KONFIGURASI HALAMAN
-# =========================================================
 st.set_page_config(
     page_title="Dashboard Performa Mahasiswa",
     page_icon="🎓",
@@ -14,14 +11,6 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# =========================================================
-# STYLING FRAME / KARTU
-# ---------------------------------------------------------
-# Setiap KPI dan visual dibungkus st.container(border=True). CSS di bawah
-# mempercantik border bawaan Streamlit tersebut: sudut membulat, padding
-# lebih lega, latar putih, dan bayangan tipis agar batas antar visual jelas.
-# (st.container(border=True) memerlukan Streamlit >= 1.29)
-# =========================================================
 st.markdown(
     """
     <style>
@@ -46,13 +35,8 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Tinggi seragam untuk chart yang disandingkan dua kolom,
-# supaya frame kiri dan kanan sejajar rapi.
 CHART_HEIGHT = 420
 
-# =========================================================
-# LOAD DATA
-# =========================================================
 DATA_FILE = "student_performance_preprocessed.csv"
 
 
@@ -87,9 +71,6 @@ ALL_CATEGORICAL_COLS = [
     "Kelompok_Jam_Belajar", "Kelompok_Stres",
 ]
 
-# =========================================================
-# LABEL BAHASA INDONESIA (konsisten di semua chart)
-# =========================================================
 LABEL_MAP = {
     "Age": "Usia",
     "Hours_Studied": "Jam Belajar",
@@ -115,10 +96,6 @@ def to_label(col):
     """Terjemahkan nama kolom teknis menjadi label Bahasa Indonesia."""
     return LABEL_MAP.get(col, col)
 
-
-# =========================================================
-# PEMETAAN WARNA & URUTAN KATEGORI GLOBAL
-# =========================================================
 ORDINAL_SCALES = {
     "Family_Income_Level": px.colors.sequential.Blues,
     "Kelompok_Jam_Belajar": px.colors.sequential.Purples,
@@ -159,9 +136,6 @@ def build_color_maps(base_df):
 COLOR_MAPS = build_color_maps(df)
 CATEGORY_ORDERS = {col: list(m.keys()) for col, m in COLOR_MAPS.items()}
 
-# =========================================================
-# SIDEBAR — FILTER
-# =========================================================
 st.sidebar.title("🎓 Filter Data")
 st.sidebar.markdown("Gunakan filter berikut untuk menyaring data mahasiswa.")
 
@@ -205,9 +179,6 @@ if f_df.empty:
     st.warning("Tidak ada data yang cocok dengan filter yang dipilih. Silakan ubah filter di sidebar.")
     st.stop()
 
-# =========================================================
-# HEADER & KPI (tiap KPI dibingkai sebagai kartu)
-# =========================================================
 st.title("🎓 Dashboard Analisis Performa Mahasiswa")
 st.markdown("Eksplorasi interaktif terhadap faktor-faktor yang memengaruhi performa akademik mahasiswa.")
 
@@ -226,9 +197,6 @@ for col, (judul, nilai) in zip(st.columns(6), KPI_ITEMS):
 
 st.write("")
 
-# =========================================================
-# 1. FAKTOR PALING BERPENGARUH TERHADAP NILAI AKHIR
-# =========================================================
 with st.container(border=True):
     st.subheader("Faktor Paling Berpengaruh terhadap Nilai Akhir")
     corr_final = f_df[NUMERIC_COLS].corr()["Final_Score"].drop("Final_Score").sort_values()
@@ -240,9 +208,7 @@ with st.container(border=True):
     fig.update_layout(coloraxis_showscale=False, showlegend=False, height=CHART_HEIGHT)
     st.plotly_chart(fig, use_container_width=True, key="bar_faktor_korelasi")
 
-# =========================================================
-# 2. MATRIKS KORELASI VARIABEL NUMERIK
-# =========================================================
+
 with st.container(border=True):
     st.subheader("Matriks Korelasi Variabel Numerik")
     corr = f_df[NUMERIC_COLS].corr().round(2)
@@ -254,9 +220,6 @@ with st.container(border=True):
     fig.update_layout(height=600)
     st.plotly_chart(fig, use_container_width=True, key="heatmap_corr")
 
-# =========================================================
-# 3 & 4. TREN JAM BELAJAR | HUBUNGAN KEHADIRAN
-# =========================================================
 c1, c2 = st.columns(2)
 
 with c1:
@@ -288,9 +251,6 @@ with c2:
         fig.update_layout(height=CHART_HEIGHT)
         st.plotly_chart(fig, use_container_width=True, key="scatter_kehadiran")
 
-# =========================================================
-# 5 & 6. DAMPAK STRES | SESI LES PER MINGGU
-# =========================================================
 c3, c4 = st.columns(2)
 
 with c3:
@@ -322,9 +282,6 @@ with c4:
         )
         st.plotly_chart(fig, use_container_width=True, key="bar_tutoring")
 
-# =========================================================
-# 7 & 8. METODE BELAJAR | KERJA PART-TIME
-# =========================================================
 c5, c6 = st.columns(2)
 
 with c5:
